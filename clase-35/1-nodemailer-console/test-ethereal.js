@@ -12,9 +12,9 @@ const transporter = createTransport({
 });
 
 const mailOptions = {
-    from: 'Servidor Node.js',
-    to: TEST_MAIL,
-    subject: 'Mail de prueba desde la Clase 35',
+    from: 'ceo@coderhouse.com',
+    to: 'alexmarinmendez@gmail.com',
+    subject: 'Haz recibido un ascenso!',
     html: '<h1 style="color: blue;">Contenido de prueba desde <span style="color: green;">Node.js con Nodemailer</span></h1>'
 }
 
