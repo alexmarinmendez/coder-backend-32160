@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer')
+const Mailgen = require('mailgen')
 
 const signup = async (req, res) => {
     let testAccount = await nodemailer.createTestAccount()
@@ -19,14 +20,66 @@ const signup = async (req, res) => {
     }
     try {
         const info = await transporter.sendMail(message)
-        res.status(201).json({ message: 'Email sent successfully... ' })
+        res.status(201).json({ 
+            message: 'Email sent successfully... ', 
+            info: info.messageId,
+            preview: nodemailer.getTestMessageUrl(info)
+        })
     } catch (error) {
         res.status(500).json({ message: 'Error! ' })
     }
 }
 
-const getbill = (req, res) => {
-    res.status(201).json({ message: 'Getbill successfully... ' })
+const getbill = async (req, res) => {
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        port: 587,
+        auth: {
+            user: 'alexmarinmendez@gmail.com',
+            pass: 'muvrmqoigqbdrbgb'
+        }
+     });
+    
+    let Mailgenerator = new Mailgen({
+        theme: "default",
+        product: {
+            name: "Bicicletas Alezhia",
+            link: "http://bicicletasalezhia.com"
+        }
+    })
+
+    let response = {
+        body: {
+            intro: "La cuenta de tu compra es:",
+            table: {
+                data: [
+                    {
+                        item: "Awesome bicicleta",
+                        description: "An awasome bicicleta",
+                        price: "USD 1900"
+                    }
+                ]
+            },
+            outro: "No olvides que puedes pagar de varias formas"
+        }
+    }
+
+    let mail = Mailgenerator.generate(response)
+
+    const mailOptions = {
+        from: 'alexmarinmendez@gmail.com',
+        to: ['dalos58.arg@gmail.com', 'naiaralihuel@gmail.com'],
+        subject: 'La factura de tu compra',
+        html: mail
+    }
+    
+    try {
+        const info = await transporter.sendMail(mailOptions)
+        res.status(201).json({ message: 'Getbill successfully... ' })
+    } catch (error) {
+        res.status(500).json({ message: 'Error' })
+    }
+    
 }
 
 module.exports = {
