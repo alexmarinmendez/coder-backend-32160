@@ -5,7 +5,11 @@ const client = require('twilio')(accountSid, authToken);
 
 client.messages
       .create({ 
-         body: 'Your appointment is coming up on July 21 at 3PM', 
+         body: 'Te adjunto los diseños', 
+         mediaUrl: [
+            'https://styles.redditmedia.com/t5_5blkvq/styles/communityIcon_t5ji6wuld2z71.jpg',
+            'https://pbs.twimg.com/media/FgfgiJAXwAAlGA0.jpg'
+        ], 
          from: 'whatsapp:+14155238886',       
          to: 'whatsapp:+51942270712' 
        }) 
