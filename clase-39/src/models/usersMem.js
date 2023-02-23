@@ -12,4 +12,4 @@ class UsersMem {
     }
 }
 
-export default new UsersMem()
+export default new UsersMem()   //patrón SINGLETON!!
