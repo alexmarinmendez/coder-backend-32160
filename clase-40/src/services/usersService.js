@@ -1,8 +1,10 @@
-import UsersDaoArray from "../daos/usersDaoArray.js"
+// import UsersDaoArray from "../daos/usersDaoArray.js"
+import UsersDaoFile from '../daos/usersDaoFile.js'
 
 export default class UsersService {
     constructor() {
-        this.usersDao = new UsersDaoArray()
+        // this.usersDao = new UsersDaoArray()
+        this.usersDao = new UsersDaoFile()
     }
 
     getUsers = async() => {
